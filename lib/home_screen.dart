@@ -61,20 +61,30 @@ bool menuType = false;
 bool hotdogType = false;
 bool burgerType = false;
 bool shoppingCart= false;
+bool accueil = true;
+int cart = 0;
 List<Map<String, dynamic>> filteredCarte = [];
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
 
-    final filteredCarte = hotdogType
-        ? carte.where((item) => item["foodType"] == "Hot-Dog").toList()
-        : burgerType
-            ? carte.where((item) => item["foodType"] == "Burger").toList()
-            : menuType
-                ? carte.where((item) => item["foodType"] == "Menu").toList()
-                : carte;
+    void addCart(){
+      cart++;
+      }
 
+     if(hotdogType) {
+        filteredCarte =  carte.where((item) => item["foodType"] == "Hot-Dog").toList() ;
+         }
+
+     else if (burgerType){
+            filteredCarte = carte.where((item) => item["foodType"] == "Burger").toList(); 
+        }
+     else if(menuType){
+                filteredCarte =  carte.where((item) => item["foodType"] == "Menu").toList();
+          }
+        
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
@@ -95,6 +105,26 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 20),
+                     // height: 30,
+                    child: TextButton(
+                      onPressed: (){
+                        setState(() {
+                          hotdogType = false;
+                          burgerType = false;
+                          menuType = false;
+                          accueil = true;
+                          shoppingCart = false;
+                        });
+                      },
+                      child: Text("Accueil", style: TextStyle(color: Colors.black,
+                      decoration: accueil? TextDecoration.underline : null,
+                      decorationColor: Colors.black,
+                      decorationThickness: 1.0,
+                      ),),
+                    ),
+                  ),
                      Container(
                       margin: EdgeInsets.only(left: 20),
                      // height: 30,
@@ -104,6 +134,8 @@ class _HomePageState extends State<HomePage> {
                           hotdogType = false;
                           burgerType = false;
                           menuType = true;
+                          accueil = false;
+                          shoppingCart = false;
                         });
                       },
                       child: Text("Menu", style: TextStyle(color: Colors.black,
@@ -122,6 +154,8 @@ class _HomePageState extends State<HomePage> {
                           hotdogType = true;
                           burgerType = false;
                           menuType = false;
+                          accueil = false;
+                          shoppingCart = false;
                         });
                       },
                       child: Text("Hot-Dogs", style: TextStyle(color: Colors.black,
@@ -140,6 +174,8 @@ class _HomePageState extends State<HomePage> {
                           hotdogType = false;
                           burgerType = true;
                           menuType = false;
+                          accueil = false;
+                          shoppingCart = false;
                         });
                       },
                       child: Text("Burgers", style: TextStyle(color: Colors.black,
@@ -159,6 +195,7 @@ class _HomePageState extends State<HomePage> {
                                 burgerType = false;
                                 menuType = false;
                                 hotdogType = false;
+                                accueil = false;
                               });
                           }, icon: Icon(Icons.shopping_cart_checkout_outlined, color: Colors.black,))
                 
@@ -168,6 +205,14 @@ class _HomePageState extends State<HomePage> {
                 ),
             ),
             SizedBox(height: 20,),
+            accueil?
+            Container(
+
+            ):
+            shoppingCart?
+            Container(
+
+            ):
             Container(
                 height: 300,
                 child: ListView.builder(
