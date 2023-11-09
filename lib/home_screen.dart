@@ -60,6 +60,7 @@ class DetailsArgument {
 bool menuType = false;
 bool hotdogType = false;
 bool burgerType = false;
+bool shoppingCart= false;
 List<Map<String, dynamic>> filteredCarte = [];
 
 class _HomePageState extends State<HomePage> {
@@ -76,119 +77,139 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
+      body: ListView(
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 80),
-            child: Text("Nos produits", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),)
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 20),
-              height: 50,
-              width: MediaQuery.of(context).size.width,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child:Row(
-                children: [
-                   Container(
-                    margin: EdgeInsets.only(left: 20),
-                   // height: 30,
-                  child: TextButton(
-                    onPressed: (){
-                      setState(() {
-                        hotdogType = false;
-                        burgerType = false;
-                        menuType = true;
-                      });
-                    },
-                    child: Text("Menu", style: TextStyle(color: Colors.black,
-                    decoration: menuType? TextDecoration.underline : null,
-                    decorationColor: Colors.black,
-                    decorationThickness: 1.0,
-                    ),),
-                  ),
-                ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20),
-                   // height: 30,
-                  child: TextButton(
-                    onPressed: (){
-                      setState(() {
-                        hotdogType = true;
-                        burgerType = false;
-                        menuType = false;
-                      });
-                    },
-                    child: Text("Hot-Dogs", style: TextStyle(color: Colors.black,
-                    decoration: hotdogType? TextDecoration.underline : null,
-                    decorationColor: Colors.black,
-                    decorationThickness: 1.0,
-                    ),),
-                  ),
-                ),
-                Container(
-                    margin: EdgeInsets.only(left: 20),
-                   // height: 30,
-                  child: TextButton(
-                    onPressed: (){
-                      setState(() {
-                        hotdogType = false;
-                        burgerType = true;
-                        menuType = false;
-                      });
-                    },
-                    child: Text("Burgers", style: TextStyle(color: Colors.black,
-                    decoration: burgerType? TextDecoration.underline : null,
-                    decorationColor: Colors.black,
-                    decorationThickness: 1.0,
-                    ),),
-                  ),
-                ),
-                ],
-              ),
-              ),
-          ),
-          SizedBox(height: 20,),
-          Container(
-              height: 300,
-              child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: filteredCarte.length,
-                  itemBuilder: (_, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Get.to(()=>DetailsPage(), arguments: DetailsArgument(filteredCarte[index]["foodName"], filteredCarte[index]["foodImage"], filteredCarte[index]["foodPrice"], filteredCarte[index]["foodDescription"]));
+          Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 80),
+              child: Text("Nos produits", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),)
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+                height: 50,
+                width: MediaQuery.of(context).size.width,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child:Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                     Container(
+                      margin: EdgeInsets.only(left: 20),
+                     // height: 30,
+                    child: TextButton(
+                      onPressed: (){
+                        setState(() {
+                          hotdogType = false;
+                          burgerType = false;
+                          menuType = true;
+                        });
                       },
-                      child: Card(
-                        elevation: 10,
-                          child: ListTile(
-                            contentPadding: EdgeInsets.only(left: 7, right: 10),
-                            leading: Container(
-                              padding: EdgeInsets.only(top: 0, bottom: 0),
-                              width: 80,
-                              height: double.infinity,
-                              child: Image.asset(filteredCarte[index]["foodImage"], 
-                              width: 100,
-                              fit: BoxFit.cover,
-                              ),
-                            ),
-                            title: Text(
-                              filteredCarte[index]["foodName"], 
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                            ),
-                            ),
-                            subtitle: Text(
-                              filteredCarte[index]["foodDescription"]),
-                            trailing: Text(
-                              filteredCarte[index]["foodPrice"]),
-                          ),
-                      ),
-                    );
-                  }
+                      child: Text("Menu", style: TextStyle(color: Colors.black,
+                      decoration: menuType? TextDecoration.underline : null,
+                      decorationColor: Colors.black,
+                      decorationThickness: 1.0,
+                      ),),
+                    ),
                   ),
-              ),        
-        ],
+                    Container(
+                      margin: EdgeInsets.only(left: 20),
+                     // height: 30,
+                    child: TextButton(
+                      onPressed: (){
+                        setState(() {
+                          hotdogType = true;
+                          burgerType = false;
+                          menuType = false;
+                        });
+                      },
+                      child: Text("Hot-Dogs", style: TextStyle(color: Colors.black,
+                      decoration: hotdogType? TextDecoration.underline : null,
+                      decorationColor: Colors.black,
+                      decorationThickness: 1.0,
+                      ),),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(left: 20),
+                     // height: 30,
+                    child: TextButton(
+                      onPressed: (){
+                        setState(() {
+                          hotdogType = false;
+                          burgerType = true;
+                          menuType = false;
+                        });
+                      },
+                      child: Text("Burgers", style: TextStyle(color: Colors.black,
+                      decoration: burgerType? TextDecoration.underline : null,
+                      decorationColor: Colors.black,
+                      decorationThickness: 1.0,
+                      ),),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(left: 20),
+                     // height: 30,
+                    child: IconButton(
+                            onPressed: (){
+                              setState(() {
+                                shoppingCart = true;
+                                burgerType = false;
+                                menuType = false;
+                                hotdogType = false;
+                              });
+                          }, icon: Icon(Icons.shopping_cart_checkout_outlined, color: Colors.black,))
+                
+                  ),
+                  ],
+                ),
+                ),
+            ),
+            SizedBox(height: 20,),
+            Container(
+                height: 300,
+                child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: filteredCarte.length,
+                    itemBuilder: (_, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Get.to(()=>DetailsPage(), arguments: DetailsArgument(filteredCarte[index]["foodName"], filteredCarte[index]["foodImage"], filteredCarte[index]["foodPrice"], filteredCarte[index]["foodDescription"]));
+                        },
+                        child: Card(
+                          elevation: 10,
+                            child: ListTile(
+                              contentPadding: EdgeInsets.only(left: 7, right: 10),
+                              leading: Container(
+                                padding: EdgeInsets.only(top: 0, bottom: 0),
+                                width: 80,
+                                height: double.infinity,
+                                child: Image.asset(filteredCarte[index]["foodImage"], 
+                                width: 100,
+                                fit: BoxFit.cover,
+                                ),
+                              ),
+                              title: Text(
+                                filteredCarte[index]["foodName"], 
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                              ),
+                              subtitle: Text(
+                                filteredCarte[index]["foodDescription"]),
+                              trailing: Text(
+                                filteredCarte[index]["foodPrice"]),
+                            ),
+                        ),
+                      );
+                    }
+                    ),
+                ),        
+          ],
+        ),
+        ]
       )
     );
   }
